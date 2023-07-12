@@ -6,6 +6,7 @@ channels:
   - IBMDecisionOptimization
 dependencies:
   - pytest
+  - math
   - pylint
   - mypy
   - autopep8
