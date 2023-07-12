@@ -1,0 +1,21 @@
+name: osmdf
+channels:
+  - cnapy
+  - conda-forge
+  - defaults
+  - IBMDecisionOptimization
+dependencies:
+  - pytest
+  - pylint
+  - mypy
+  - autopep8
+  - matplotlib-base
+  - pip
+  - numpy=1.34.4
+  - python=3.8
+  - cobra=0.22
+  - pulp
+  - cplex
+  - equilibrator-api=0.4
+  - seaborn
+prefix: /home/user/miniconda3/envs/osmdf
