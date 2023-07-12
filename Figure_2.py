@@ -77,5 +77,5 @@ for i in range(len(ks_and_growth_rates)):
 # using this files we can tell what reactions are feasible or not and make the figure in escher by running convertCSVtoJSON.py,
 # Pair_fwd.py and 4map.py
 print(" Store data")
-with open("./toronto_results/analysis_iv/Z_analysis/z_and_flux.csv", "w") as f:
+with open("./Results/z_and_flux.csv", "w") as f:
     f.write(Z_analysis)
