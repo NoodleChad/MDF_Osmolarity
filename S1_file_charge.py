@@ -70,5 +70,5 @@ for i in range(len(ks_and_growth_rates)):
             CVA_analysis += f"{current_growth_rate},{current_k},{mets},{math.exp(min_val['values'][to_opt_val[j]])},{math.exp(max_val['values'][to_opt_val[j]])}\n"
 
 print(" Store data")
-with open("./toronto_results/analysis_iv/CVA_new_dG0_nomal_max_charge.csv", "w") as f:
+with open("./Results/CVA/CVA_charge.csv", "w") as f:
     f.write(CVA_analysis)
