@@ -1,10 +1,10 @@
 import json
 
-with open("./toronto_results/analysis_iv/Z_analysis/z_analysis_74.json") as f:
+with open("./Results/Figure_2/z_analysis_74.json") as f:
     data = json.load(f)
-with open("./toronto_results/analysis_iii/iJO1366.json", "r") as f:
+with open("./Ressources/iJO1366.json", "r") as f:
     core = json.load(f)
-with open("./toronto_results/analysis_iii/iML1515.json", "r") as f:
+with open("./Ressources/iML1515.json", "r") as f:
     genome = json.load(f)
 
 l = list(range(0,len(list(core["reactions"]))))
@@ -52,22 +52,10 @@ for i in l:
 # replace biomass name
 id[id.index("BIOMASS_Ec_iML1515_core_75p37M")] = "BIOMASS_Ec_iJO1366_core_53p95M"
 
-    # pair all PFK together
-    # if "PFK" not in list(id):
-    #     id.append("PFK")
-    #     value.append(0)
-    # if "PFK_2" in list(id):
-    #     value[id.index("PFK")] = value[id.index("PFK")] + value[id.index("PFK_2")]
-    #     value[id.index("PFK_2")] = 0
-    # if "PFK_3" in list(id):
-    #     value[id.index("PFK")] = value[id.index("PFK")] + value[id.index("PFK_3")]
-    #     value[id.index("PFK_3")] = 0
-    # make the actual dictionary
-
 Flux = {}
 l = list(range(0,len(list(id))))
 for i in l:
     Flux[id[i]] = value[i]
 
-with open("./toronto_results/analysis_iv/Z_analysis/z_analysis_74_figure.json", "w") as f:
+with open("./toronto_results/analysis_iv/Z_analysis/Escher_074.json", "w") as f:
     json.dump(Flux,f)
