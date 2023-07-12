@@ -37,5 +37,5 @@ while current_k >= 0.002:
     mets_analysis += f"{max_growth},{current_k},{mets},{math.exp(min['values'][mets])},{math.exp(max['values'][mets])}\n"
     current_k -= 0.0001
 print(" Store data")
-with open("./toronto_results/analysis_iv/CVA_with_k/mets_with_k_low.csv", "w") as f:
+with open("./Results/Figure_1b.csv", "w") as f:
     f.write(mets_analysis)
