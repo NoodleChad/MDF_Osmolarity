@@ -33,5 +33,5 @@ for data_input in growth_data:
         optmdfpathway_result=optmdfpathway_result,
         )
 
-        with open(f"./Results/Bottleneck/bottleneck_analysis_{current_k}_newdGO.txt", "w", encoding="utf-8") as f:
+        with open(f"./Results/Bottleneck/bottleneck_analysis_{current_k}.txt", "w", encoding="utf-8") as f:
             f.write(br)
