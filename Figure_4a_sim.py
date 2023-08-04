@@ -28,5 +28,5 @@ while current_k >= 0.01:
     else:
         print("Infeasible!")
         break
-with open("./Results/Experimental/NaCl_simulated.csv", "w") as f:
+with open("./Experimental/NaCl_simulated.csv", "w") as f:
             f.write(analysis_num_k)
