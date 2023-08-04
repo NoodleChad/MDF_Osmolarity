@@ -85,6 +85,41 @@ def add_osmolarity_constraints(optmdfpathway_base_problem: pulp.LpProblem,
 
     osmolarity_sum_constraint = osmolarity_sum_var - sum_expression == 0
     optmdfpathway_base_problem += osmolarity_sum_constraint
+        # Add the ion pump constraint
+    dKdt = 315
+    high_osm = pulp.LpAffineExpression(name="high_osm")
+    k_reactions = ["Kabcpp","Kt2pp"]
+    K_high_osm = pulp.LpVariable(
+        name="potassium_pump_rate",
+        lowBound=0,
+        upBound=1000,
+    )
+    ion_free = pulp.LpVariable(
+        name="no_cost_until350",
+        lowBound=0,
+        upBound=dKdt*0.35,
+    )
+    float_h_osm = pulp.LpVariable(
+        name="high_osm_float",
+        lowBound=0,
+        upBound=1000,
+    )
+    high_osm = -dKdt*K_high_osm + 1*ion_free + -1*float_h_osm == 0
+    #high_osm = -dKdt*K_high_osm + -1*float_h_osm == 0
+    base_variables = optmdfpathway_base_problem.variablesDict()
+    for reaction in k_reactions:
+        current_flux_variable = base_variables[reaction]
+        high_osm += 1*current_flux_variable
+
+    optmdfpathway_base_problem += high_osm
+    # create a free irreversible potassium export reaction
+    K_free_export = pulp.LpVariable(
+        name="Free_transport_out",
+        lowBound=0,
+        upBound=1000,
+    )
+    optmdfpathway_base_problem.constraints['k_c'] += -1*K_free_export
+    optmdfpathway_base_problem.constraints['k_p'] += 1*K_free_export
 
     return optmdfpathway_base_problem
 
