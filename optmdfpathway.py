@@ -14,7 +14,7 @@ from typing import Any, List, Dict
 # Internal
 from fba import get_fba_base_problem
 from linear_approximation import add_linear_function_approximation
-from optimization import perform_optimization_with_given_objective, perform_variable_maximization, perform_variable_minimization, solve_current_problem
+from optimization import perform_variable_maximization, perform_variable_minimization, solve_current_problem
 
 
 ## CONSTANTS ##
@@ -85,7 +85,8 @@ def add_osmolarity_constraints(optmdfpathway_base_problem: pulp.LpProblem,
 
     osmolarity_sum_constraint = osmolarity_sum_var - sum_expression == 0
     optmdfpathway_base_problem += osmolarity_sum_constraint
-        # Add the ion pump constraint
+
+    # Add the ion pump constraint
     dKdt = 315
     high_osm = pulp.LpAffineExpression(name="high_osm")
     k_reactions = ["Kabcpp","Kt2pp"]
@@ -120,7 +121,7 @@ def add_osmolarity_constraints(optmdfpathway_base_problem: pulp.LpProblem,
     )
     optmdfpathway_base_problem.constraints['k_c'] += -1*K_free_export
     optmdfpathway_base_problem.constraints['k_p'] += 1*K_free_export
-
+    
     return optmdfpathway_base_problem
 
 def get_optmdfpathway_base_problem(cobra_model: cobra.Model, dG0_values: Dict[str, Dict[str, float]],
@@ -273,6 +274,8 @@ def get_optmdfpathway_base_problem(cobra_model: cobra.Model, dG0_values: Dict[st
         )
     
     base_problem += z_sum_var == z_sum
+
+
 
     return base_problem
 
