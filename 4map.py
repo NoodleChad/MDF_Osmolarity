@@ -2,9 +2,9 @@ import json
 
 with open("./Results/Figure_2/z_analysis_74.json") as f:
     data = json.load(f)
-with open("./Ressources/iJO1366.json", "r") as f:
+with open("./resources/iJO1366.json", "r") as f:
     core = json.load(f)
-with open("./Ressources/iML1515.json", "r") as f:
+with open("./resources/iML1515.json", "r") as f:
     genome = json.load(f)
 
 l = list(range(0,len(list(core["reactions"]))))
