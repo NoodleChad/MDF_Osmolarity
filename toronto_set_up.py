@@ -63,94 +63,6 @@ concentration_values = {
         "min": 1.0,
         "max": 1.0,
     }
-    # "glu__L_c": {
-    #     "min": 0.09,
-    #     "max": 0.1,
-    # },
-    # "mal__L_c": {
-    #     "min": 0.001,
-    #     "max": 0.1,
-    # },
-    # "asp__L_c": {
-    #     "min": 0.003,
-    #     "max": 0.1,
-    # },
-    # "gln__L_c": {
-    #     "min": 0.003,
-    #     "max": 0.1,
-    # },
-    # "ala__L_c": {
-    #     "min": 0.002,
-    #     "max": 0.1,
-    # },
-    # "arg__L_c": {
-    #     "min": 0.0004,
-    #     "max": 0.1,
-    # },
-    # "asn__L_c": {
-    #     "min": 0.0004,
-    #     "max": 0.1,
-    # },
-    # "citr__L_c": {
-    #     "min": 0.001,
-    #     "max": 0.1,
-    # },
-    #  "hcys__L_c": {
-    #     "min": 0.0003,
-    #     "max": 0.1,
-    # },
-    #  "lys__L_c": {
-    #     "min": 0.0003,
-    #     "max": 0.1,
-    # },
-    #  "met__L_c": {
-    #     "min": 1e-6,
-    #     "max": 0.1,
-    # },
-    #  "phe__L_c": {
-    #     "min": 1e-5,
-    #     "max": 0.1,
-    # },
-    #  "pro__L_c": {
-    #     "min": 0.0003,
-    #     "max": 0.1,
-    # },
-    #  "ser__L_c": {
-    #     "min": 2e-5,
-    #     "max": 0.1,
-    # },
-    #  "thr__L_c": {
-    #     "min": 0.0001,
-    #     "max": 0.1,
-    # },
-    #  "trp__L_c": {
-    #     "min": 1e-5,
-    #     "max": 0.1,
-    # },
-    #  "tyr__L_c": {
-    #     "min": 2e-5,
-    #     "max": 0.1,
-    # },
-    #  "val__L_c": {
-    #     "min": 0.003,
-    #     "max": 0.1,
-    # },
-    #  "utp_c": {
-    #     "min": 0.007,
-    #     "max": 0.1,
-    # },
-    #  "gtp_c": {
-    #     "min": 0.001,
-    #     "max": 0.1,
-    # },
-    #  "ctp_c": {
-    #     "min": 0.002,
-    #     "max": 0.1,
-    # },
-    #  "dttp_c": {
-    #     "min": 0.004,
-    #     "max": 0.1,
-    # },
 }
 
 ####
@@ -183,38 +95,9 @@ print("STATUS:", optmdfpathway_result["status"])
 print("zb sum:", optmdfpathway_result["values"]["zb_sum_var"], "reactions")
 print("var_B:", optmdfpathway_result["values"]["var_B"], "kJ/mol")
 
-# for key in optmdfpathway_result["values"].keys():
-#     if key.startswith("zb_var") and optmdfpathway_result["values"][key] > 1e-3:
-#         inner_text = key.replace("zb_var", "")
-#         inner_text = ("\b"+inner_text).replace("\b_", "")
-#         text = f'del(dG0_values["{inner_text}"])'
-#         print(text)
 
-# Here it seems like reactions that are not required at max growth rate are not added to the solution (useless?)
-
-# del(dG0_values["SHCHD2"])
-# del(dG0_values["KDOCT2"])
-# del(dG0_values["MECDPS"])
-# del(dG0_values["DHPPDA2"])
-# del(dG0_values["ATPPRT"])
-# del(dG0_values["IG3PS"])
-# del(dG0_values["PGCD"])
-# del(dG0_values["MCTP1App"])
-# del(dG0_values["MALCOAMT"])
-# del(dG0_values["AIRC3_REV"])
-# del(dG0_values["AIRC3_FWD"])
-# del(dG0_values["CBMKr_FWD"])
-# del(dG0_values["CBMKr_REV"])
-
-# del(dG0_values["SHCHD2"])
-# del(dG0_values["KDOCT2"])
-# del(dG0_values["MECDPS"])
-# del(dG0_values["DHPPDA2"])
-# del(dG0_values["ATPPRT"])
-# del(dG0_values["IG3PS"])
-# del(dG0_values["MCTP1App"])
-# del(dG0_values["AIRC3_REV"])
-
+# These reactions are removed because they make growth infeasible in typical growth condition.
+# We assume the incertainty on these values is to high to make them reliable and therefore, should not be considered in the solution.
 del(dG0_values["ATPPRT"])
 del(dG0_values["SHCHD2"])
 del(dG0_values["MECDPS"])
@@ -225,8 +108,6 @@ del(dG0_values["IG3PS"])
 del(dG0_values["AIRC3_REV"])
 del(dG0_values["AIRC3_FWD"])
 del(dG0_values["MALCOAMT"])
-####
-
 
 print(">Get base OptMDFpathway MILP (without osmolarity constraints)...")
 optmdfpathway_base_problem = get_optmdfpathway_base_problem(
