@@ -27,30 +27,6 @@ print(f" Used rounded and floored max growth is {used_max_growth}")
 print(">Load precomputed eQuilibrator dG0 values")
 dG0_values = json_load("./resources/dG0_iML1515_irreversible_cleaned.json")
 
-print(">Deactivate precomputed thermodynamic bottlenecks as long as OptMDF<0 kJ/mol")
-# # Round 1
-# del(dG0_values["ATPPRT"])
-# # Round 2
-# del(dG0_values["SHCHD2"])
-# # Round 3
-# del(dG0_values["MECDPS"])
-# # Round 4
-# del(dG0_values["DHPPDA2"])
-# # Round 5
-# del(dG0_values["MCTP1App"])
-# # Round 6
-# del(dG0_values["KDOCT2"])
-# # Round 7
-# del(dG0_values["IG3PS"])
-# # Round 8
-# del(dG0_values["CBMKr_FWD"])
-# # Round 9
-# del(dG0_values["MALCOAMT"])
-# # Round 10
-# del(dG0_values["AIRC3_REV"])
-# # Round 11
-# del(dG0_values["PGCD"])
-
 print(">Delete precomputed multi-compartmental dG0 values")
 dG0_value_ids = list(dG0_values.keys())
 for dG0_value_id in dG0_value_ids:
