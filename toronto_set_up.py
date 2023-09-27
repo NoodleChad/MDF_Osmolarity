@@ -132,11 +132,7 @@ optmdfpathway_base_variables = optmdfpathway_base_milp_with_osmolarity.variables
 
 print(f">Test OptMDFpathway run by temporarily setting µ>{used_max_growth}...")
 optmdfpathway_base_variables[biomass_reaction_id].bounds(used_max_growth, 1e12)
-## optmdfpathway_base_variables["var_B"].bounds(MIN_MMDF, 1e12)
 optmdfpathway_test_result = perform_variable_maximization(optmdfpathway_base_milp_with_osmolarity, "var_B")
-## optmdfpathway_base_milp_with_osmolarity.writeMPS("./juliatest/testCVA.mps", mip=0)
-## optmdfpathway_base_variables["var_B"].bounds(-1e12, 1e12)
-## optmdfpathway_base_variables[biomass_reaction_id].bounds(0, 1e12)
 print(" Status:", optmdfpathway_test_result["status"])
 print(" OptMDF:", optmdfpathway_test_result["values"]["var_B"])
 
