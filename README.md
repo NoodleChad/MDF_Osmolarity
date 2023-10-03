@@ -9,7 +9,7 @@ Folders:\
 **Experimental** Data generated in the wet lab\
 **Results** Results of each of the analysis\
 **To_make_model** These codes should allow you to recreate your own thermodynamic models which are going to be the input of all further analysis. We used iML1515 directly retrieved from the BiGG database\
-**Tools_Figure3** Contains the code used to directly take the data of what is feasible or not (Figure 3) and transforms it in way that makes it amenable for Escher maps.
+**Tools_Figure_3** Contains the code used to directly take the data of what is feasible or not (Figure 3) and transforms it in way that makes it amenable for Escher maps.
 **Uncertainty** The results of our Delta G uncertainty analysis\
 **resources** This file contains everything that was required as an input for our analysis\
 \
