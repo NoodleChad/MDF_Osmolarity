@@ -12,8 +12,6 @@ Folders:\
 **Tools_Figure_3** Contains the code used to directly take the data of what is feasible or not (Figure 3) and transforms it in way that makes it amenable for Escher maps.
 **Uncertainty** The results of our Delta G uncertainty analysis\
 **resources** This file contains everything that was required as an input for our analysis\
-
-### Note that &theta;, the osmotic pressure limit was set to 0 during our calculations
 Question? alexandre.tremblay@mail.utoronto.ca
 
 
