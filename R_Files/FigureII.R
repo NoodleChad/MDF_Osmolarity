@@ -1,6 +1,6 @@
 #### Figure II a) ####
-setwd("C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Analysis/II")
-dat<-read.csv("analysis_II_figure1_newdG0.csv",sep=",",dec=".",h=T)
+setwd("./Results")
+dat<-read.csv("Figure2a.csv",sep=",",dec=".",h=T)
 
 # Draw first plot using axis y1
 pdf(file = "C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Figure/Figure2a.pdf", 
@@ -28,7 +28,7 @@ library(ggnewscale)
 setwd("C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Analysis/IV/CVA_with_k")
 dat<-read.csv("FigureIIb.csv",sep=",",dec=".",h=T)
 
-growth<-read.csv("C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Analysis/II/analysis_II_last.csv",sep=",",dec=".",h=T)
+growth<-read.csv("Figure2b.csv",sep=",",dec=".",h=T)
 pdf(file = "C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Figure/Figure2b.pdf",
     width = 20, height = 7)
 par(mar = c(7, 4, 1, 4) + 0.3)
@@ -63,8 +63,8 @@ ggplot() +                                        # Add background colors to plo
 dev.off()
 
 ### Figure II c) ###
-setwd("C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Analysis/IV/CVA_alex")
-dat<-read.csv("CVA_new_dG0_nomal_max.csv",sep=",",dec=".",h=T)
+setwd("./Results/CVA/")
+dat<-read.csv("CVA.csv",sep=",",dec=".",h=T)
 mets.name<-c("3pg","accoa","asp__L","atp","dhap","g3p","glu__L",'imp',"mal__L","nad","succoa")
 
 library(plotrix)
