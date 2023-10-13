@@ -3,7 +3,7 @@ setwd("./Results")
 dat<-read.csv("Figure2a.csv",sep=",",dec=".",h=T)
 
 # Draw first plot using axis y1
-pdf(file = "C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Figure/Figure2a.pdf", 
+pdf(file = "./Figures/Figure2a.pdf", 
     width = 18, height = 7)
 par(mar = c(7, 4, 1, 4) + 0.3)  
 plot(dat$k_val*1000, dat$max_growth, pch = 16, col = 1, xlab = "K (mOsm)", xlim=c(0,30),
@@ -29,7 +29,7 @@ setwd("C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/
 dat<-read.csv("FigureIIb.csv",sep=",",dec=".",h=T)
 
 growth<-read.csv("Figure2b.csv",sep=",",dec=".",h=T)
-pdf(file = "C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Figure/Figure2b.pdf",
+pdf(file = "./Figures/Figure2b.pdf",
     width = 20, height = 7)
 par(mar = c(7, 4, 1, 4) + 0.3)
 pd = position_dodge(.75)
@@ -95,7 +95,7 @@ for(i in 1:length(mets.name)){
 }
 ions<-c(1,1,1,1,1,1,1,1,1,1,1)
 ion.names<-c("3pg","Acetyl-CoA","Aspartate","ATP","DHAP","g3p","Glutamate","IMP","Malate","NAD","Succinyl-CoA")
-pdf(file = "C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Figure/Figure2c.pdf", width = 8.27, height = 5.83)
+pdf(file = "./Figures/Figure2c.pdf", width = 8.27, height = 5.83)
 par(mar = c(7, 4, 1, 4) + 0.3)
 radial.plot(ions,labels=ion.names,main="",
             grid.unit="meq/l",radial.lim=c(0,1),lwd=3,line.col=1,

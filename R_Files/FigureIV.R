@@ -1,12 +1,11 @@
 #### Figure IV  ####
-setwd("C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Exp")
-dat<-read.csv("Exp_4_R.csv",sep=",",dec=".",h=T)
-setwd("C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Analysis/II")
-dat1<-read.csv("analysis_II_final_kcl.csv",sep=",",dec=".",h=T)
-dat2<-read.csv("analysis_II_final_nacl.csv",sep=",",dec=".",h=T)
+setwd("./Experimental/")
+dat<-read.csv("Max_growth_output.csv",sep=",",dec=".",h=T)
+dat1<-read.csv("./Results/analysis_II_final_kcl.csv",sep=",",dec=".",h=T)
+dat2<-read.csv("./Results/analysis_II_final_nacl.csv",sep=",",dec=".",h=T)
 dat1$k_val = dat1$k_val*1000
 dat2$k_val = dat2$k_val*1000
-pdf(file = "C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Figure/Figure4.pdf",
+pdf(file = "./Figures/Figure4.pdf",
     width = 10, height = 6)
 par(mar = c(6, 4.1, 4.1, 2.1))
 plot(dat1$k_val, dat1$max_growth,col="#1b98e0",type='l',lwd = 4,
@@ -32,10 +31,9 @@ legend(x = "topright",inset = c(0.25, -0.2), legend = c("NaCl", "KCl"),
        col = c("green","#1b98e0"),xpd = TRUE, horiz = TRUE,bty = 'n')
 dev.off()
 # Stats
-setwd("C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Exp")
   library(energy)
   # NaCl
-    dat_nacl<-read.csv("NaCl_3_stats.csv",sep=",",dec=".",h=T)
+    dat_nacl<-read.csv("./Experimental/NaCl.csv",sep=",",dec=".",h=T)
     # linear
       linear_salt_effect.lm <- lm(dat_nacl$mu_norm ~ dat_nacl$NaCl)
       summary(linear_salt_effect.lm)
@@ -62,7 +60,7 @@ setwd("C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/
       dcor(dat_nacl$NaCl, dat_nacl$mu_norm,index=1)
       
   # KCl
-    dat_kcl<-read.csv("KCl_3_stats.csv",sep=",",dec=".",h=T)
+    dat_kcl<-read.csv("./Experimental/KCl.csv",sep=",",dec=".",h=T)
     # Quadratic
       quad_salt_effect.lm <- lm(dat_kcl$mu_norm ~ poly(dat_kcl$KCl, 2, raw=TRUE))
       summary(quad_salt_effect.lm)

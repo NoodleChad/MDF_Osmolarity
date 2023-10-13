@@ -1,6 +1,6 @@
 ## Figure S2 ##
-dat<-read.csv("bioreactor_2.csv",sep=",",dec=".",h=T)
-pdf(file = "C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Figure/FigureS2.pdf",
+dat<-read.csv("./Experimental/bioreactor_OD.csv",sep=",",dec=".",h=T)
+pdf(file = "./Figures/FigureS2.pdf",
     width = 10, height = 6)
 plot(dat$time,dat$Bio5_1,xlab="Time (h)",ylab="OD600nm", pch =17,,type="b",
      main="",cex = 1.25,cex.axis=1.5, cex.lab = 1.5,col="black",ylim=c(0,0.55))

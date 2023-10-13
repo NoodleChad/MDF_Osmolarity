@@ -1,5 +1,5 @@
 # This code is used to generate all the figures from the new metabolome data
-setwd("C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Exp")
+setwd("./Experimental/")
 ########## Figure 6a ###########
 dat<-read.csv("Metabolome_HILIQ.csv",sep=",",dec=".",h=T)
 dat2<-read.csv("Metabolome_C18.csv",sep=",",dec=".",h=T)
@@ -67,7 +67,7 @@ score <-c(mean(c(NaCl_1_sum_C18,NaCl_1_sum_HILIQ)),mean(c(NaCl_25_sum_C18,NaCl_2
 mx_max <- as.matrix(score_max)
 mx_min <- as.matrix(score_min)
 mx <- as.matrix(score)
-pdf(file = "C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Figure/Figure6a_col.pdf",
+pdf(file = "./Figures/Figure6a.pdf",
     width = 8, height = 6)
 par(mar = c(5.1, 5.1, 4.1, 2.1))  
 barplot_2<-barplot(score,xlab = "NaCl concentration (mM)",ylab = "Abundance index",
@@ -202,9 +202,7 @@ mx_max <- as.matrix(met_max)
 mx <- as.matrix(met_mean)
 colnames(mx) <- met_name
 
-sim<-read.csv("C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Analysis/IV/CVA_with_k/FigureIIb.csv",sep=",",dec=".",h=T)
-
-pdf(file = "C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Figure/Figure6b.pdf",
+pdf(file = "./Figures/Figure6b.pdf",
     width = 10, height = 6)
 par(mar = c(5.1, 5.1, 4.1, 2.1))  
 base_r_barplot <- barplot(mx,ylim = c(0, 1.5),col = c("red","forestgreen","#1b98e0","purple","grey"),
@@ -222,7 +220,7 @@ arrows(x0 = base_r_barplot,                           # Add error bars
 dev.off()
 ########## Figure 6c ###########
 dat<-read.csv("Metabolome_C18.csv",sep=",",dec=".",h=T)
-extreme_rem <- readRDS("C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Exp/extreme_rec.rds")
+extreme_rem <- readRDS("./R_Files/extreme_rec.rds") # This contains metabolites names that are not in iML1515 from a previous result
 extreme = "bacon"
 Name = dat$Name
 Formula = dat$Formula
@@ -353,16 +351,16 @@ rownames(datex) = Heat_mets
 # Generate heat map
 hm <- heatmap(datex,Rowv = NA, Colv = NA)
 labs <- colnames(datex)[hm$colInd]
-pdf(file = "C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Figure/Figure6c.pdf",
+pdf(file = "./Figures/Figure6c.pdf",
     width = 8, height = 6)
 heatmap(datex,Rowv = NA, Colv = NA,labCol = "",xlab="NaCl concentration (mM)",
         cex.lab=4,add.expr = text(x = seq_along(labs), y = -.5, labels = colnames(datex), xpd = TRUE,cex=1.75))
 dev.off()
 
 ###### Figure 6d ######
-setwd("C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Analysis/IV/CVA_with_k")
-dat<-read.csv("accoa_bioreac.csv",sep=",",dec=".",h=T)
-pdf(file = "C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Figure/Figure6d.pdf",
+setwd("./Experimental")
+dat<-read.csv("accoa_bioreac_growth.csv",sep=",",dec=".",h=T)
+pdf(file = "./Figures/Figure6d.pdf",
     width = 10, height = 6)
 par(mar = c(5.1, 5.1, 4.1, 2.1))  
 barplot<-barplot(log(dat$mean[dat$mets=="x_accoa_c"]*1000*1000),col = c("red","forestgreen","#1b98e0","purple","grey"),
