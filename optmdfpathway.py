@@ -321,7 +321,7 @@ def get_thermodynamic_bottlenecks(cobra_model: cobra.Model,
             continue
 
         original_dG0 = current_dG0_variable.lowBound
-        current_dG0_variable.bounds(original_dG0-500, original_dG0-500)
+        current_dG0_variable.bounds(-500, -500)
         bottleneck_problem_result = perform_variable_maximization(optmdfpathway_base_problem, "var_B", optmdfpathway_base_variables, **kwargs)
         current_dG0_variable.bounds(original_dG0, original_dG0)
 
