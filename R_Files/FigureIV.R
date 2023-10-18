@@ -1,8 +1,8 @@
 #### Figure IV  ####
 setwd("./Experimental/")
 dat<-read.csv("Max_growth_output.csv",sep=",",dec=".",h=T)
-dat1<-read.csv("./Results/analysis_II_final_kcl.csv",sep=",",dec=".",h=T)
-dat2<-read.csv("./Results/analysis_II_final_nacl.csv",sep=",",dec=".",h=T)
+dat1<-read.csv("./Results/analysis_II_fitted_kcl.csv",sep=",",dec=".",h=T)
+dat2<-read.csv("./Results/analysis_II_fitted_nacl.csv",sep=",",dec=".",h=T)
 dat1$k_val = dat1$k_val*1000
 dat2$k_val = dat2$k_val*1000
 pdf(file = "./Figures/Figure4.pdf",
