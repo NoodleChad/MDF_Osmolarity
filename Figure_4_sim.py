@@ -51,6 +51,3 @@ while current_k >= 0.01:
         break
 with open("../Experimental/NaCl_simulated.csv", "w") as f:
             f.write(analysis_num_k)
-
-with open("./Experimental/NaCl_simulated.csv", "w") as f:
-            f.write(analysis_num_k)
