@@ -1,9 +1,9 @@
-#### Figure II a) ####
+#### Figure II b) ####
 setwd("./Results")
-dat<-read.csv("Figure2a.csv",sep=",",dec=".",h=T)
+dat<-read.csv("Figure2b.csv",sep=",",dec=".",h=T)
 
 # Draw first plot using axis y1
-pdf(file = "./Figures/Figure2a.pdf", 
+pdf(file = "./Figures/Figure2b.pdf", 
     width = 18, height = 7)
 par(mar = c(7, 4, 1, 4) + 0.3)  
 plot(dat$k_val*1000, dat$max_growth, pch = 16, col = 1, xlab = "K (mOsm)", xlim=c(0,30),
@@ -22,14 +22,36 @@ mtext("Total number of feasible reactions", side = 4, line = 3,cex=1.5)
 legend(x=24, y=1010,legend = c("Growth rate", "Active reactions"), pch = c(16,18),col = c(1,4),cex = 1.5)
 dev.off()
 
-#### Figure II b) ####
+#### Figure II c) ####
+dat250<-read.csv("hyper_osm_250.csv",sep=",",dec=".",h=T)
+dat500<-read.csv("hyper_osm_500.csv",sep=",",dec=".",h=T)
+dat750<-read.csv("hyper_osm_750.csv",sep=",",dec=".",h=T)
+dat1000<-read.csv("hyper_osm_1000.csv",sep=",",dec=".",h=T)
+pdf(file = "./Figures/Figure2c.pdf", 
+    width = 12, height = 8)
+par(mar = c(5.1, 5.1, 4.1, 2.1)) 
+plot(dat250$k_val*1000, dat250$max_growth, pch = 18, col = 1,ylim=c(0,1),
+     cex.axis=2, cex.lab = 2,xlab = "K (mM)",cex=1.5, 
+     ylab = expression(paste("Growth (h"^"-1",")")))
+points(dat500$k_val*1000, dat500$max_growth, pch = 15, col = 2,cex=1.5)
+points(dat750$k_val*1000, dat750$max_growth, pch = 17, col = 3,cex=1.5)
+points(dat1000$k_val*1000, dat1000$max_growth, pch = 19, col = 4,cex=1.5)
+abline(v=25, col="blue",lwd = 2)
+text(x=45,y=0.8,expression('K'["threshold"]),col="blue",cex=2)
+legend(x=30, y=0.65,legend = c(expression(paste(gamma, " = 250")), 
+                              expression(paste(gamma, " = 500")),
+                              expression(paste(gamma, " = 750")),
+                              expression(paste(gamma, " = 1000"))),
+       pch = c(18,15,17,19),col = c(1,2,3,4),cex=2)
+dev.off()
+
+#### Figure II d) ####
 library(ggplot2)
 library(ggnewscale)
 setwd("C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Analysis/IV/CVA_with_k")
 dat<-read.csv("FigureIIb.csv",sep=",",dec=".",h=T)
-
 growth<-read.csv("Figure2b.csv",sep=",",dec=".",h=T)
-pdf(file = "./Figures/Figure2b.pdf",
+pdf(file = "./Figures/Figure2d.pdf",
     width = 20, height = 7)
 par(mar = c(7, 4, 1, 4) + 0.3)
 pd = position_dodge(.75)
@@ -62,7 +84,7 @@ ggplot() +                                        # Add background colors to plo
   theme_classic(base_size = 23)
 dev.off()
 
-### Figure II c) ###
+### Figure II e) ###
 setwd("./Results/CVA/")
 dat<-read.csv("CVA.csv",sep=",",dec=".",h=T)
 mets.name<-c("3pg","accoa","asp__L","atp","dhap","g3p","glu__L",'imp',"mal__L","nad","succoa")
@@ -95,7 +117,7 @@ for(i in 1:length(mets.name)){
 }
 ions<-c(1,1,1,1,1,1,1,1,1,1,1)
 ion.names<-c("3pg","Acetyl-CoA","Aspartate","ATP","DHAP","g3p","Glutamate","IMP","Malate","NAD","Succinyl-CoA")
-pdf(file = "./Figures/Figure2c.pdf", width = 8.27, height = 5.83)
+pdf(file = "./Figures/Figure2e.pdf", width = 8.27, height = 5.83)
 par(mar = c(7, 4, 1, 4) + 0.3)
 radial.plot(ions,labels=ion.names,main="",
             grid.unit="meq/l",radial.lim=c(0,1),lwd=3,line.col=1,
