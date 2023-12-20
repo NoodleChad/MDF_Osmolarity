@@ -37,5 +37,5 @@ while current_k >= 0.002:
     mets_analysis += f"{max_growth},{current_k},{mets},{math.exp(min['values'][mets])},{math.exp(max['values'][mets])}\n"
     current_k -= 0.0001
 print(" Store data")
-with open("./Results/Figure_2b.csv", "w") as f:
+with open("./Results/Figure_2d.csv", "w") as f:
     f.write(mets_analysis)

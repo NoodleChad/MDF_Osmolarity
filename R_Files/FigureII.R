@@ -48,9 +48,7 @@ dev.off()
 #### Figure II d) ####
 library(ggplot2)
 library(ggnewscale)
-setwd("C:/Users/alexa/OneDrive - University of Toronto/Documents/PhD_UofT/Paper/Osm/Analysis/IV/CVA_with_k")
-dat<-read.csv("FigureIIb.csv",sep=",",dec=".",h=T)
-growth<-read.csv("Figure2b.csv",sep=",",dec=".",h=T)
+dat<-read.csv("Figure2d.csv",sep=",",dec=".",h=T)
 pdf(file = "./Figures/Figure2d.pdf",
     width = 20, height = 7)
 par(mar = c(7, 4, 1, 4) + 0.3)

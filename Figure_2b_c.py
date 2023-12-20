@@ -25,6 +25,6 @@ while current_k >= 0.001:
     else:
         print("Infeasible!")
         break
-with open("./Results/Figure_2a.csv", "w") as f:
+with open("./Results/Figure_2b.csv", "w") as f:
             f.write(analysis_num_k)
     

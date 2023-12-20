@@ -1,15 +1,16 @@
-#### FigureS1 - With charge ####
-setwd("./Results/CVA/")
-dat<-read.csv("CVA_charge.csv",sep=",",dec=".",h=T)
-dat1<-read.csv("CVA.csv",sep=",",dec=".",h=T)
-
-# Draw first plot using axis y1
+#### FigureS1
+dat<-read.csv("./Results/FigureS1.csv",sep=",",dec=".",h=T)
+dat$ln_met = dat$ln_met*1000
+dat$exp_met = dat$exp_met*1000
 pdf(file = "./Figures/FigureS1.pdf",
-    width = 8.27, height = 5.83)
-par(mar = c(7, 4, 1, 4) + 0.3)  
-plot(dat$K, dat$max_growth, pch = 16, col = 1, 
-     xlab = "K (mOsm)",
-     ylab = "Growth rate (1/h)",cex.axis=1.5, cex.lab = 1.5) 
-points(dat1$K, dat1$max_growth,pch=18, col = "red")
-legend(x=0.016, y=0.8,legend = c("With Charge Balance", "Without Charge Balance"), pch = c(16,18),col = c("black","red"), cex=1.5)
+    width = 12, height = 8)
+par(mfrow = c(2, 2),mar = c(5.1, 5.1, 4.1, 2.1))
+plot(dat$ln_met[dat$k_val==0.0026],dat$exp_met[dat$k_val==0.0026],xlab = expression(paste(e^{'Xj'},' (mM)')),ylab=expression(paste(Cj^{'*'},' (mM)')),
+     pch = 16,cex = 1.25,cex.axis=2, cex.lab = 1.75, main="K = 0.0026 M",cex.main = 2)
+plot(dat$ln_met[dat$k_val==0.02],dat$exp_met[dat$k_val==0.02],xlab = expression(paste(e^{'Xj'},' (mM)')),ylab=expression(paste(Cj^{'*'},' (mM)')),
+     pch = 16,col = 'red',cex = 1.25,cex.axis=2, cex.lab = 1.75, main="K = 0.02 M",cex.main = 2)
+plot(dat$ln_met[dat$k_val==0.2],dat$exp_met[dat$k_val==0.2],xlab = expression(paste(e^{'Xj'},' (mM)')),ylab=expression(paste(Cj^{'*'},' (mM)')),
+     pch = 16,col = 'blue',cex = 1.25,cex.axis=2, cex.lab = 1.75, main="K = 0.2 M",cex.main = 2)
+plot(dat$ln_met[dat$k_val==2],dat$exp_met[dat$k_val==2],xlab = expression(paste(e^{'Xj'},' (mM)')),ylab=expression(paste(Cj^{'*'},' (mM)')),
+     pch = 16,col = 'forestgreen',cex = 1.25,cex.axis=2, cex.lab = 1.75, main="K = 2 M",cex.main = 2)
 dev.off()
