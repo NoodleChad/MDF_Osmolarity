@@ -23,73 +23,58 @@ legend(x=24, y=1010,legend = c("Growth rate", "Active reactions"), pch = c(16,18
 dev.off()
 
 #### Figure II c) ####
-dat250<-read.csv("hyper_osm_250.csv",sep=",",dec=".",h=T)
-dat500<-read.csv("hyper_osm_500.csv",sep=",",dec=".",h=T)
-dat750<-read.csv("hyper_osm_750.csv",sep=",",dec=".",h=T)
-dat1000<-read.csv("hyper_osm_1000.csv",sep=",",dec=".",h=T)
-pdf(file = "./Figures/Figure2c.pdf", 
+dat100<-read.csv("Figure_2c_100.csv",sep=",",dec=".",h=T)
+dat200<-read.csv("Figure_2c_200.csv",sep=",",dec=".",h=T)
+dat500<-read.csv("Figure_2c_500.csv",sep=",",dec=".",h=T)
+dat1000<-read.csv("Figure_2c_1000.csv",sep=",",dec=".",h=T)
+pdf(file = "./Figures/Figure_2c.pdf", 
     width = 12, height = 8)
 par(mar = c(5.1, 5.1, 4.1, 2.1)) 
-plot(dat250$k_val*1000, dat250$max_growth, pch = 18, col = 1,ylim=c(0,1),
-     cex.axis=2, cex.lab = 2,xlab = "K (mM)",cex=1.5, 
+plot(dat100$k_val*1000, dat100$max_growth, pch = 18, col = 1,ylim=c(0,1),
+     cex.axis=2, cex.lab = 2,xlab = expression(paste(Phi, " (mmol/L)")),cex=1.5, 
      ylab = expression(paste("Growth (h"^"-1",")")))
-points(dat500$k_val*1000, dat500$max_growth, pch = 15, col = 2,cex=1.5)
-points(dat750$k_val*1000, dat750$max_growth, pch = 17, col = 3,cex=1.5)
+points(dat200$k_val*1000, dat200$max_growth, pch = 15, col = 2,cex=1.5)
+points(dat500$k_val*1000, dat500$max_growth, pch = 17, col = 3,cex=1.5)
 points(dat1000$k_val*1000, dat1000$max_growth, pch = 19, col = 4,cex=1.5)
-abline(v=25, col="blue",lwd = 2)
-text(x=45,y=0.8,expression('K'["threshold"]),col="blue",cex=2)
-legend(x=30, y=0.65,legend = c(expression(paste(gamma, " = 250")), 
-                              expression(paste(gamma, " = 500")),
-                              expression(paste(gamma, " = 750")),
-                              expression(paste(gamma, " = 1000"))),
+abline(v=200, col="blue",lwd = 2)
+text(x=225,y=0.95,expression(paste(Phi["threshold"])),col="blue",cex=2)
+legend(x=205, y=0.35,legend = c(expression(paste(psi, " = 100")), 
+                              expression(paste(psi, " = 200")),
+                              expression(paste(psi, " = 500")),
+                              expression(paste(psi, " = 1000"))),
        pch = c(18,15,17,19),col = c(1,2,3,4),cex=2)
 dev.off()
 
 #### Figure II d) ####
 library(ggplot2)
 library(ggnewscale)
-dat<-read.csv("Figure2d.csv",sep=",",dec=".",h=T)
+dat<-read.csv("Figure_2d.csv",sep=",",dec=".",h=T)
 pdf(file = "./Figures/Figure2d.pdf",
     width = 20, height = 7)
-par(mar = c(7, 4, 1, 4) + 0.3)
-pd = position_dodge(.75)
-
-#data_breaks <- data.frame(start = c(0.0023,0.0035,0.0095, 0.0145, 0.0205),  # Create data with breaks
-                          #end = c(0.0031,0.0045, 0.0115, 0.0195, 0.0255),
-                          #colors = factor(1:5))
-ggplot() +                                        # Add background colors to plot
-  #geom_rect(data = data_breaks,
-   #         aes(xmin = start,
-    #            xmax = end,
-     #           ymin = - Inf,
-      #          ymax = Inf,
-       #         fill = colors),
-        #    alpha = 0.5) +
-  geom_point(data = dat, size = 2.5, aes(k_val*1000, mean, color = Metabolites, shape=Metabolites), position = pd)+
-  geom_errorbar(data = dat, size = 0.5, aes(x = k_val*1000, ymin  = min, ymax  = max, color = Metabolites), 
+par(mar = c(5.1, 5.1, 4.1, 5.1))  
+pd = position_dodge(.55)
+ggplot() +                              
+  geom_point(data = dat, size = 2.5, aes(k_val*1000, mean, color = mets, shape=mets), position = pd,show.legend = FALSE)+
+  geom_errorbar(data = dat, size = 0.5, aes(x = k_val*1000, ymin  = min, ymax  = max, color = mets), 
                 width = 1, position = pd) +
-  #scale_fill_manual(values = c("grey80","grey65", "grey50", "grey35","grey15"),labels=c("0.7432","0.8727","0.8966","0.9008","0.9024")) +
-  xlab("K (mOsm)") +
-  scale_x_continuous(breaks=seq(0,30,1),limits=c(0, 31))+
-  #labs(fill='Growth rate')+
-  #scale_y_continuous("Concentration (mol/L)",sec.axis = sec_axis(~ . * 100, name = "Growth Rate (1/h)"))+
-  scale_y_continuous("Concentration (mol/L)")+
-  scale_color_manual(values = c("Acetyl-CoA"="red", "Acetate"="blue",
-                                "ATP"="darkgreen","NAD"="black","Growth Rate"="black"))+
-  #new_scale_colour() +
-  #geom_line(aes(color = "Growth Rate",growth$K[1:2745]*1000, growth$max_growth[1:2745]/100),lwd=1.5) +
-  #scale_colour_discrete(labels = "Growth Rate",name = "",type = "black")+
-  theme_classic(base_size = 23)
+  xlab(expression(paste(Phi, " (mmol/L)"))) +
+  scale_x_continuous(breaks=seq(145,171,2),limits=c(145, 171))+
+  scale_y_continuous("Concentration (mmol/L)")+
+  scale_color_manual(values = c("red", "blue",
+                                "darkgreen","black"))+
+  guides(fill="none", color=FALSE)+
+
+  theme_classic(base_size = 26)
 dev.off()
 
+
 ### Figure II e) ###
-setwd("./Results/CVA/")
-dat<-read.csv("CVA.csv",sep=",",dec=".",h=T)
-mets.name<-c("3pg","accoa","asp__L","atp","dhap","g3p","glu__L",'imp',"mal__L","nad","succoa")
+dat<-read.csv("Figure_2e.csv",sep=",",dec=".",h=T)
+mets.name<-c("3pg","accoa","asp__L","atp","dhap","g3p","glu__L",'imp',"mal__L","nad")
 
 library(plotrix)
 par(mar=c(5,4,4,2))
-# Each values for all values of k
+# Each values for all values of Phi
 same_in_all = "bacon"
 val_902 = 1
 val_9008 = 1
@@ -113,9 +98,10 @@ for(i in 1:length(mets.name)){
     val_8727_max[i] = (dat$max[dat$mets==mets.name[i]][4]-min(dat$max))/(max(dat$max[dat$mets==mets.name[i]])-min(dat$max))
     val_7432_max[i] = (dat$max[dat$mets==mets.name[i]][5]-min(dat$max))/(max(dat$max[dat$mets==mets.name[i]])-min(dat$max))
 }
-ions<-c(1,1,1,1,1,1,1,1,1,1,1)
-ion.names<-c("3pg","Acetyl-CoA","Aspartate","ATP","DHAP","g3p","Glutamate","IMP","Malate","NAD","Succinyl-CoA")
-pdf(file = "./Figures/Figure2e.pdf", width = 8.27, height = 5.83)
+ions<-c(1,1,1,1,1,1,1,1,1,1)
+ion.names<-c("3pg","Acetyl-CoA","Aspartate","ATP","DHAP","g3p","Glutamate","IMP","Malate","NAD")
+pdf(file = "./Figures/Figure2e.pdf",
+    width = 8.27, height = 5.83)
 par(mar = c(7, 4, 1, 4) + 0.3)
 radial.plot(ions,labels=ion.names,main="",
             grid.unit="meq/l",radial.lim=c(0,1),lwd=3,line.col=1,
@@ -123,6 +109,10 @@ radial.plot(ions,labels=ion.names,main="",
 # add points inside the polygon - radial.lim is supplied by plotrix_env
 radial.plot(val_8966_max,rp.type="r",lwd=3, line.col="forestgreen",add=TRUE,cex=1.5)
 radial.plot(val_8966,rp.type="r",lwd=3, line.col=1,add=TRUE,cex=1.5)
+radial.plot(val_9008,rp.type="r",lwd=3, line.col="blue",add=TRUE,cex=1.5)
+radial.plot(val_9008_max,rp.type="r",lwd=3, line.col=1,add=TRUE,cex=1.5)
+radial.plot(val_902,rp.type="r",lwd=3, line.col="red",add=TRUE,cex=1.5)
+radial.plot(val_902_max,rp.type="r",lwd=3, line.col=1,add=TRUE,cex=1.5)
 
 radial.plot(val_8966_max,rp.type="s",point.symbols=15,point.col="forestgreen",add=TRUE,cex=1.5)
 radial.plot(val_8966,rp.type="s",point.symbols=15,point.col="forestgreen",add=TRUE,cex=1.5)
@@ -134,6 +124,6 @@ radial.plot(val_8727,rp.type="s",point.symbols=3,point.col="black",add=TRUE,cex=
 radial.plot(val_8727_max,rp.type="s",point.symbols=3,point.col="black",add=TRUE,cex=1.5)
 radial.plot(val_7432,rp.type="s",point.symbols=18,point.col="yellow",add=TRUE,cex=1.5)
 radial.plot(val_7432_max,rp.type="s",point.symbols=18,point.col="yellow",add=TRUE,cex=1.5)
-legend(1.1,0.3,title="Growth rate (1/h)",legend=c("0.9028","0.9008","0.8966","0.8727","0.7432"),
+legend(1.1,0.3,title="Growth rate (1/h)",legend=c("0.8770","0.8751","0.8478","0.8045","0.7174"),
        pch = c(16,17,15,3,18),col=c("red","blue","forestgreen","black","yellow"),cex=1,bty="n")
 dev.off()

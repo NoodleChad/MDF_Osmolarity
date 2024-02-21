@@ -26,5 +26,5 @@ while current_phi <= 0.21:
     else:
         print("Infeasible!")
         current_phi = round(current_phi + 0.0001,7)
-with open("./Results/FigureS2.csv", "w") as f:
+with open("./Results/FigureS2_minus.csv", "w") as f:
             f.write(analysis_num_k)
