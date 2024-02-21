@@ -5,21 +5,21 @@ dat<-read.csv("Figure2b.csv",sep=",",dec=".",h=T)
 # Draw first plot using axis y1
 pdf(file = "./Figures/Figure2b.pdf", 
     width = 18, height = 7)
-par(mar = c(7, 4, 1, 4) + 0.3)  
-plot(dat$k_val*1000, dat$max_growth, pch = 16, col = 1, xlab = "K (mOsm)", xlim=c(0,30),
-     ylab = "Growth rate (1/h)",cex.axis=1.5, cex.lab = 1.5, xaxt = 'n',) 
-axis(1, at = seq(0, 30, by = 1), las=1,cex.axis = 1.5)
+par(mar = c(5.1, 5.1, 4.1, 5.1))  
+plot(dat$k_val*1000, dat$max_growth, pch = 16, col = 1, xlab = expression(paste(Phi, " (mmol/L)")), xlim=c(145,170),
+     ylab = expression(paste("Growth (h"^"-1",")")),ylim=c(0,1),cex.axis=2, cex.lab = 2, xaxt = 'n',) 
+axis(1, at = seq(145, 171, by = 1), las=1,cex.axis = 2)
 # set parameter new=True for a new axis
 par(new = TRUE)         
 
 # Draw second plot using axis y2
 plot(dat$k_val*1000, dat$num_open, pch = 18, col = 4, axes = FALSE, xlab = "", 
-     ylab = "",ylim = c(985,1015),xlim=c(0,30))
+     ylab = "",ylim = c(900,1100),xlim=c(145,171))
 
 
-axis(side = 4, at = pretty(range(dat$num_open[1:length(dat$k_val)])),cex.axis=1.35)      
-mtext("Total number of feasible reactions", side = 4, line = 3,cex=1.5)
-legend(x=24, y=1010,legend = c("Growth rate", "Active reactions"), pch = c(16,18),col = c(1,4),cex = 1.5)
+axis(side = 4, at = pretty(range(900,1100)),cex.axis=2)      
+mtext("Total number of feasible reactions", side = 4, line = 3,cex=2)
+legend('bottomright',legend = c("Growth rate", "Active reactions"), pch = c(16,18),col = c(1,4),cex = 2)
 dev.off()
 
 #### Figure II c) ####
