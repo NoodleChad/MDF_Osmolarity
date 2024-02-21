@@ -19,7 +19,7 @@ from optimization import perform_variable_maximization, perform_variable_minimiz
 
 ## CONSTANTS ##
 M = 10_000
-STANDARD_R = 8.314e-3  # kJ⋅K⁻1⋅mol⁻1 (standard value is in J⋅K⁻1⋅mol⁻1)
+STANDARD_R = 8.314e-3  # kJ�K{1�mol{1 (standard value is in J�K{1�mol{1)
 STANDARD_T = 298.15  # K
 
 
@@ -87,41 +87,42 @@ def add_osmolarity_constraints(optmdfpathway_base_problem: pulp.LpProblem,
     optmdfpathway_base_problem += osmolarity_sum_constraint
 
     # Add the ion pump constraint
-    dKdt = 315
+    psi = 1020 # Slope have to be -5 and 80 is -.3
     high_osm = pulp.LpAffineExpression(name="high_osm")
-    k_reactions = ["Kabcpp","Kt2pp"]
-    K_high_osm = pulp.LpVariable(
-        name="potassium_pump_rate",
+    Osmotic_demand = pulp.LpVariable(
+        name="Osmotic_ATP_demand",
         lowBound=0,
         upBound=1000,
     )
-    ion_free = pulp.LpVariable(
-        name="no_cost_until350",
+    Phi_high_osm = pulp.LpVariable(
+        name="Phi_high_osm",
         lowBound=0,
-        upBound=dKdt*0.35,
+        upBound=1000,
+    )
+    Phi_threshold = pulp.LpVariable(
+        name="no_cost_until",
+        lowBound=0,
+        upBound=psi*1000
     )
     float_h_osm = pulp.LpVariable(
         name="high_osm_float",
         lowBound=0,
         upBound=1000,
     )
-    high_osm = -dKdt*K_high_osm + 1*ion_free + -1*float_h_osm == 0
-    #high_osm = -dKdt*K_high_osm + -1*float_h_osm == 0
-    base_variables = optmdfpathway_base_problem.variablesDict()
-    for reaction in k_reactions:
-        current_flux_variable = base_variables[reaction]
-        high_osm += 1*current_flux_variable
+    high_osm = -psi*Phi_high_osm + Osmotic_demand + 1*Phi_threshold  + -1*float_h_osm == 0
 
     optmdfpathway_base_problem += high_osm
-    # create a free irreversible potassium export reaction
+    # define osmotic demand metabolites
     K_free_export = pulp.LpVariable(
         name="Free_transport_out",
         lowBound=0,
         upBound=1000,
     )
-    optmdfpathway_base_problem.constraints['k_c'] += -1*K_free_export
-    optmdfpathway_base_problem.constraints['k_p'] += 1*K_free_export
-    
+    optmdfpathway_base_problem.constraints['atp_c'] += -1*Osmotic_demand
+    optmdfpathway_base_problem.constraints['h2o_c'] += -1*Osmotic_demand
+    optmdfpathway_base_problem.constraints['adp_c'] += 1*Osmotic_demand
+    optmdfpathway_base_problem.constraints['h_c'] += 1*Osmotic_demand
+    optmdfpathway_base_problem.constraints['pi_c'] += 1*Osmotic_demand    
     return optmdfpathway_base_problem
 
 def get_optmdfpathway_base_problem(cobra_model: cobra.Model, dG0_values: Dict[str, Dict[str, float]],
@@ -145,7 +146,7 @@ def get_optmdfpathway_base_problem(cobra_model: cobra.Model, dG0_values: Dict[st
     """
     # Concentrations in M
     # T in K
-    # R in kJ⋅K⁻1⋅mol⁻1 (standard value is in J⋅K⁻1⋅mol⁻1)
+    # R in kJ�K{1�mol{1 (standard value is in J�K{1�mol{1)
     # Get FBA base
     base_problem = get_fba_base_problem(
         cobra_model=cobra_model,
@@ -201,8 +202,8 @@ def get_optmdfpathway_base_problem(cobra_model: cobra.Model, dG0_values: Dict[st
             cat=pulp.LpContinuous,
         )
 
-        # f_r = -(ΔG'0_r + RT * S^(t)_.,r * x)
-        # <=> -ΔG'0_r - - f_r RT * S^(t)_.,r * x = 0
+        # f_r = -(�G'0_r + RT * S^(t)_.,r * x)
+        # <=> -�G'0_r - - f_r RT * S^(t)_.,r * x = 0
         dG0_value = dG0_values[reaction.id]["dG0"]
         dG0_randomfixed_variable = pulp.LpVariable(
             name=f"dG0_{reaction.id}",
@@ -212,7 +213,7 @@ def get_optmdfpathway_base_problem(cobra_model: cobra.Model, dG0_values: Dict[st
         dG0_randomfixed_variable.fixValue()
 
         # e.g.,
-        #     RT * ln(([S]*[T])/([A]²*[B]))
+        #     RT * ln(([S]*[T])/([A]�*[B]))
         # <=> RT*ln([S]) + RT*ln([T]) - 2*RT*ln([A]) - RT*ln([B])
         reaction_f_expression = -current_f_variable
         for metabolite in reaction.metabolites:
@@ -321,7 +322,7 @@ def get_thermodynamic_bottlenecks(cobra_model: cobra.Model,
             continue
 
         original_dG0 = current_dG0_variable.lowBound
-        current_dG0_variable.bounds(-500, -500)
+        current_dG0_variable.bounds(original_dG0-500, original_dG0-500)
         bottleneck_problem_result = perform_variable_maximization(optmdfpathway_base_problem, "var_B", optmdfpathway_base_variables, **kwargs)
         current_dG0_variable.bounds(original_dG0, original_dG0)
 
@@ -345,7 +346,7 @@ def get_thermodynamic_bottlenecks(cobra_model: cobra.Model,
         current_dG0_variable = optmdfpathway_base_variables[f"dG0_{reaction.id}"]
         bottleneck_report += f">Bottleneck reaction no. {counter+1}:\n"
         bottleneck_report += f" *ID: {reaction.id}\n"
-        bottleneck_report += f" *ΔG'°: {round(current_dG0_variable.lowBound, 4)} kJ/mol\n"
+        bottleneck_report += f" *�G'�: {round(current_dG0_variable.lowBound, 4)} kJ/mol\n"
         bottleneck_report += f" *Reached OptMDF without this bottleneck: {round(optmdfs[reaction.id], 4)} kJ/mol\n"
         bottleneck_report += f" *Reaction string: {reaction.reaction}\n"
         metabolite_ids = [x.id for x in reaction.metabolites]
